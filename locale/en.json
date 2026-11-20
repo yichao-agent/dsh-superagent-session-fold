@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Superagent session containment",
+    "description": "Moves superagent worker sessions out of the sidebar session list into one status row. Clicking the row opens the Superagent main conversation (the management panel keeps its own entry in the upper navigation); running and waiting task counts stay visible in the row.",
+    "detail": "docs/DETAIL.md"
+  }
+}

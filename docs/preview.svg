@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300">
+  <g fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- before: many worker directories -->
+    <g opacity="0.9">
+      <g transform="translate(40 62)">
+        <rect x="0" y="0" width="132" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+        <path d="M22 7v10" stroke="#64748b" opacity="0.5"/>
+      </g>
+      <g transform="translate(40 94)">
+        <rect x="0" y="0" width="120" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      </g>
+      <g transform="translate(40 126)">
+        <rect x="0" y="0" width="126" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      </g>
+      <g transform="translate(40 158)">
+        <rect x="0" y="0" width="112" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      </g>
+      <g transform="translate(40 190)">
+        <rect x="0" y="0" width="124" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      </g>
+      <g transform="translate(40 222)">
+        <rect x="0" y="0" width="116" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      </g>
+    </g>
+
+    <!-- arrow -->
+    <g transform="translate(238 150)" stroke="#3b82f6" stroke-width="2">
+      <path d="M0 -10h64M56 -18l10 8-10 8"/>
+    </g>
+
+    <!-- after: one folded group, many rows inside when opened -->
+    <g transform="translate(368 56)">
+      <rect x="0" y="0" width="232" height="182" rx="12" fill="#eef4ff" stroke="#c7d7f5"/>
+      <rect x="14" y="16" width="204" height="28" rx="7" fill="#dbe7fb" stroke="none"/>
+      <path d="M30 24.5h4.5l2 2.2h5.8" stroke="#2f6fed"/>
+      <path d="M114 25.5l4 4-4 4" stroke="#2f6fed"/>
+      <circle cx="186" cy="30" r="2.2" fill="#2f6fed"/>
+      <circle cx="194" cy="30" r="2.2" fill="#2f6fed" opacity="0.65"/>
+      <circle cx="202" cy="30" r="2.2" fill="#2f6fed" opacity="0.35"/>
+      <g stroke="#93a9cc" stroke-width="1.4" opacity="0.85">
+        <path d="M44 62h96M44 82h132M44 102h112M44 122h140M44 142h88"/>
+      </g>
+      <g fill="#2f6fed" opacity="0.55">
+        <circle cx="30" cy="61" r="2.4"/><circle cx="30" cy="81" r="2.4"/>
+        <circle cx="30" cy="101" r="2.4"/><circle cx="30" cy="121" r="2.4"/>
+        <circle cx="30" cy="141" r="2.4"/>
+      </g>
+    </g>
+  </g>
+</svg>
