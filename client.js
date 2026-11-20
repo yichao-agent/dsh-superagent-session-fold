@@ -1,5 +1,5 @@
 /**
- * dsh-session-fold — client half.
+ * dsh-superagent-session-fold — client half.
  *
  * Replaces the sidebar browsing region (`sidebar.workspaces`) with a compact
  * session browser that folds every Workspace under a configured directory
@@ -18,17 +18,21 @@
  */
 
 window.__ModuleLoader__.load({
-  id: 'dsh-session-fold',
+  id: 'dsh-superagent-session-fold',
   factory(require) {
     const React = require('react')
     const h = React.createElement
     const { useState, useEffect, useMemo, useRef, useCallback } = React
 
     const NS = 'sessionFold'
-    const PLUGIN_ID = 'session-fold'
-    const STORE_EXPANDED = 'dsh-session-fold.expanded.v2'
-    const STORE_ROOTS = 'dsh-session-fold.roots.v1'
-    const STORE_SHOW_ARCHIVED = 'dsh-session-fold.showArchived.v1'
+    const STORE_ROOTS = 'dsh-superagent-session-fold.roots.v1'
+    const STORE_SHOW_ARCHIVED = 'dsh-superagent-session-fold.showArchived.v1'
+    const STORE_EXPANDED = 'dsh-superagent-session-fold.expanded.v1'
+    // Keys written by the pre-rename bundle; read once and re-persisted under
+    // the new names so existing users keep their view state.
+    const LEGACY_ROOTS = 'dsh-session-fold.roots.v1'
+    const LEGACY_SHOW_ARCHIVED = 'dsh-session-fold.showArchived.v1'
+    const LEGACY_EXPANDED = 'dsh-session-fold.expanded.v2'
     const DEFAULT_ROOTS = ['/.dsh/state/superagent']
     const FOLD_KEY = '__session-fold__'
     const UNGROUPED_KEY = '__session-fold-ungrouped__'
@@ -427,7 +431,7 @@ window.__ModuleLoader__.load({
 
     /** Configured fold roots; `localStorage` overrides the built-in default. */
     function foldRoots() {
-      const stored = readJson(STORE_ROOTS, null)
+      const stored = readJson(STORE_ROOTS, null) ?? readJson(LEGACY_ROOTS, null)
       const list = Array.isArray(stored) && stored.length > 0 ? stored : DEFAULT_ROOTS
       return list.map(normalizeRoot).filter(root => root.length > 1)
     }
@@ -525,7 +529,7 @@ window.__ModuleLoader__.load({
         this.state = { failed: false }
       }
       static getDerivedStateFromError() { return { failed: true } }
-      componentDidCatch(error) { console.error('dsh-session-fold: render failed', error) }
+      componentDidCatch(error) { console.error('dsh-superagent-session-fold: render failed', error) }
       render() {
         if (!this.state.failed) return this.props.children
         return h('div', { className: 'sf-root' },
@@ -551,8 +555,8 @@ window.__ModuleLoader__.load({
       const useScroller = useSectionScroller
 
       const [roots] = useState(foldRoots)
-      const [expanded, setExpanded] = useState(() => readJson(STORE_EXPANDED, {}))
-      const [showArchived, setShowArchived] = useState(() => readJson(STORE_SHOW_ARCHIVED, false) === true)
+      const [expanded, setExpanded] = useState(() => readJson(STORE_EXPANDED, null) ?? readJson(LEGACY_EXPANDED, {}))
+      const [showArchived, setShowArchived] = useState(() => (readJson(STORE_SHOW_ARCHIVED, null) ?? readJson(LEGACY_SHOW_ARCHIVED, false)) === true)
       const [query, setQuery] = useState('')
       const [searchOpen, setSearchOpen] = useState(false)
       const [menuOpen, setMenuOpen] = useState(false)
@@ -1113,7 +1117,7 @@ window.__ModuleLoader__.load({
       inject: ['slots', 'locale', 'sessions', 'workspaces', 'uiWorkspace'],
       apply(ctx) {
         try {
-          ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'session-fold: dictionaries')
+          ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'superagent-session-fold: dictionaries')
           ctx.slots.inject('sidebar.workspaces', () => ctx.slots.register({
             name: 'sidebar.workspaces',
             priority: -10,
@@ -1123,7 +1127,7 @@ window.__ModuleLoader__.load({
         } catch (error) {
           // Never leave the sidebar without a browsing region: the shipped
           // browser stays the winner when this registration never lands.
-          console.error('dsh-session-fold: registration failed; keeping the built-in browser', error)
+          console.error('dsh-superagent-session-fold: registration failed; keeping the built-in browser', error)
         }
       },
     }

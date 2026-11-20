@@ -1,8 +1,8 @@
-# dsh-session-fold
+# dsh-superagent-session-fold
 
-[![GitHub stars](https://img.shields.io/github/stars/yichao-agent/dsh-session-fold?style=flat-square)](https://github.com/yichao-agent/dsh-session-fold/stargazers)
-[![GitHub watchers](https://img.shields.io/github/watchers/yichao-agent/dsh-session-fold?style=flat-square)](https://github.com/yichao-agent/dsh-session-fold/watchers)
-[![License](https://img.shields.io/github/license/yichao-agent/dsh-session-fold?style=flat-square)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/yichao-agent/dsh-superagent-session-fold?style=flat-square)](https://github.com/yichao-agent/dsh-superagent-session-fold/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/yichao-agent/dsh-superagent-session-fold?style=flat-square)](https://github.com/yichao-agent/dsh-superagent-session-fold/watchers)
+[![License](https://img.shields.io/github/license/yichao-agent/dsh-superagent-session-fold?style=flat-square)](LICENSE)
 
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) client plugin that keeps the sidebar usable when `dsh-superagent` spawns one workspace per worker task.
 
@@ -39,7 +39,7 @@ The plugin is a DSH bundle (Host no-op + Client module).
 ### CLI
 
 ```bash
-dsh plugin --profile web add /absolute/path/to/dsh-session-fold
+dsh plugin --profile web add /absolute/path/to/dsh-superagent-session-fold
 ```
 
 Then restart or reload the Web UI. Disable the plugin to get the shipped sidebar browser back immediately — nothing on disk is changed.
@@ -52,14 +52,16 @@ Defaults work for a standard DSH + superagent installation. Advanced overrides l
 
 | Key | Default | Meaning |
 | --- | --- | --- |
-| `dsh-session-fold.roots.v1` | `["/.dsh/state/superagent"]` | JSON array of path fragments whose workspaces are contained. Matching is boundary-aware: `/.dsh/state/superagent` matches the parent and every task below it. |
-| `dsh-session-fold.showArchived.v1` | `false` | Whether archived sessions are listed in the normal groups. |
-| `dsh-session-fold.expanded.v2` | `{}` | Expansion state of normal workspaces only; containment and task folders are never persisted as expanded. |
+| `dsh-superagent-session-fold.roots.v1` | `["/.dsh/state/superagent"]` | JSON array of path fragments whose workspaces are contained. Matching is boundary-aware: `/.dsh/state/superagent` matches the parent and every task below it. |
+| `dsh-superagent-session-fold.showArchived.v1` | `false` | Whether archived sessions are listed in the normal groups. |
+| `dsh-superagent-session-fold.expanded.v1` | `{}` | Expansion state of normal workspaces only; containment and task folders are never persisted as expanded. |
+
+Older installs (`dsh-session-fold`) keep their view state: the legacy `dsh-session-fold.*` keys are still read as a fallback.
 
 Example, to also contain another script directory:
 
 ```js
-localStorage.setItem('dsh-session-fold.roots.v1', JSON.stringify([
+localStorage.setItem('dsh-superagent-session-fold.roots.v1', JSON.stringify([
   '/.dsh/state/superagent',
   '/.dsh/state/other-agent',
 ]))
@@ -91,7 +93,7 @@ Disabling the bundle removes the registration and the shipped browser wins again
 ```
 client.js            Client module (plain JS, React from the module table)
 index.js             Host half (no-op; keeps the bundle a Loader entry)
-cordis.patch.yml     Bundle patch inserting the session-fold row
+cordis.patch.yml     Bundle patch inserting the superagent-session-fold row
 locale/              Plugin Manager display metadata (en, zh)
 docs/                Plugin detail document, preview, screenshots
 ```
@@ -107,7 +109,7 @@ The design contract for the slot, hooks, and services is documented by DSH itsel
 
 ## Star history
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yichao-agent/dsh-session-fold&type=Date)](https://star-history.com/#yichao-agent/dsh-session-fold&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=yichao-agent/dsh-superagent-session-fold&type=Date)](https://star-history.com/#yichao-agent/dsh-superagent-session-fold&Date)
 
 The chart is served by [star-history.com](https://star-history.com) and updates automatically as the repository gains stars; the badges above are live shields.io images.
 

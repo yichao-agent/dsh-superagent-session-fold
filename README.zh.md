@@ -1,8 +1,8 @@
-# dsh-session-fold
+# dsh-superagent-session-fold
 
-[![GitHub stars](https://img.shields.io/github/stars/yichao-agent/dsh-session-fold?style=flat-square)](https://github.com/yichao-agent/dsh-session-fold/stargazers)
-[![GitHub watchers](https://img.shields.io/github/watchers/yichao-agent/dsh-session-fold?style=flat-square)](https://github.com/yichao-agent/dsh-session-fold/watchers)
-[![License](https://img.shields.io/github/license/yichao-agent/dsh-session-fold?style=flat-square)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/yichao-agent/dsh-superagent-session-fold?style=flat-square)](https://github.com/yichao-agent/dsh-superagent-session-fold/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/yichao-agent/dsh-superagent-session-fold?style=flat-square)](https://github.com/yichao-agent/dsh-superagent-session-fold/watchers)
+[![License](https://img.shields.io/github/license/yichao-agent/dsh-superagent-session-fold?style=flat-square)](LICENSE)
 
 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（DSH）客户端插件：当 `dsh-superagent` 为每个 worker 任务创建一个工作区时，让侧边栏保持可用。
 
@@ -39,7 +39,7 @@
 ### 命令行
 
 ```bash
-dsh plugin --profile web add /absolute/path/to/dsh-session-fold
+dsh plugin --profile web add /absolute/path/to/dsh-superagent-session-fold
 ```
 
 然后重启或刷新 Web UI。停用插件会立即恢复原生侧边栏浏览器；磁盘上的任何数据都不会被改动。
@@ -52,14 +52,16 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-fold
 
 | 键 | 默认值 | 含义 |
 | --- | --- | --- |
-| `dsh-session-fold.roots.v1` | `["/.dsh/state/superagent"]` | JSON 数组，路径片段；匹配是边界感知的，`/.dsh/state/superagent` 会命中父目录及其下所有任务目录。 |
-| `dsh-session-fold.showArchived.v1` | `false` | 普通分组里是否显示已归档会话。 |
-| `dsh-session-fold.expanded.v2` | `{}` | 只保存普通工作区的展开状态；收容行和任务目录不会被持久化为展开。 |
+| `dsh-superagent-session-fold.roots.v1` | `["/.dsh/state/superagent"]` | JSON 数组，路径片段；匹配是边界感知的，`/.dsh/state/superagent` 会命中父目录及其下所有任务目录。 |
+| `dsh-superagent-session-fold.showArchived.v1` | `false` | 普通分组里是否显示已归档会话。 |
+| `dsh-superagent-session-fold.expanded.v1` | `{}` | 只保存普通工作区的展开状态；收容行和任务目录不会被持久化为展开。 |
+
+旧版（`dsh-session-fold`）的视图状态会自动延续：`dsh-session-fold.*` 键会作为回退继续读取。
 
 例如把另一个脚本目录也收容：
 
 ```js
-localStorage.setItem('dsh-session-fold.roots.v1', JSON.stringify([
+localStorage.setItem('dsh-superagent-session-fold.roots.v1', JSON.stringify([
   '/.dsh/state/superagent',
   '/.dsh/state/other-agent',
 ]))
@@ -91,7 +93,7 @@ Client 模块以 `priority: -10` 注册到单例槽位 `sidebar.workspaces`，�
 ```
 client.js            Client 模块（纯 JS，React 来自模块表）
 index.js             Host 空壳（保证 bundle 有 Loader 条目）
-cordis.patch.yml     bundle 补丁，插入 session-fold 条目
+cordis.patch.yml     bundle 补丁，插入 superagent-session-fold 条目
 locale/              插件管理界面的展示元数据（中/英）
 docs/                插件详情页、预览图、截图
 ```
@@ -107,7 +109,7 @@ dsh plugin --profile web add "$PWD"
 
 ## Star 历史
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yichao-agent/dsh-session-fold&type=Date)](https://star-history.com/#yichao-agent/dsh-session-fold&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=yichao-agent/dsh-superagent-session-fold&type=Date)](https://star-history.com/#yichao-agent/dsh-superagent-session-fold&Date)
 
 图表由 [star-history.com](https://star-history.com) 提供，仓库获得 star 后会自动更新；上面两枚徽章由 shields.io 实时生成。
 
