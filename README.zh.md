@@ -33,6 +33,11 @@
 ### 通过插件管理界面
 
 1. 克隆或下载本仓库到本地目录；
+
+```bash
+git clone https://github.com/yichao-agent/dsh-superagent-session-fold.git
+```
+
 2. 打开 **设置 → 插件 → 添加插件**，安装该目录；
 3. 刷新 Web 页面（Client 模块在页面启动时加载，安装/更新后必须刷新）。
 
@@ -112,6 +117,10 @@ dsh plugin --profile web add "$PWD"
 [![Star History Chart](https://api.star-history.com/svg?repos=yichao-agent/dsh-superagent-session-fold&type=Date)](https://star-history.com/#yichao-agent/dsh-superagent-session-fold&Date)
 
 图表由 [star-history.com](https://star-history.com) 提供，仓库获得 star 后会自动更新；上面两枚徽章由 shields.io 实时生成。
+
+## 参与贡献
+
+欢迎提 Issue / PR。如果它让你的侧边栏清爽了，点个 star 能帮到其他 DSH 用户。
 
 ## 许可证
 

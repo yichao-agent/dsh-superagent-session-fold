@@ -33,6 +33,11 @@ The plugin is a DSH bundle (Host no-op + Client module).
 ### Plugin Manager
 
 1. Clone or download this repository to a local directory.
+
+```bash
+git clone https://github.com/yichao-agent/dsh-superagent-session-fold.git
+```
+
 2. Open **Settings → Plugins → Add plugin** and install that directory.
 3. Reload the Web page (the Client module is loaded at page boot; a reload is required after install or update).
 
@@ -112,6 +117,10 @@ The design contract for the slot, hooks, and services is documented by DSH itsel
 [![Star History Chart](https://api.star-history.com/svg?repos=yichao-agent/dsh-superagent-session-fold&type=Date)](https://star-history.com/#yichao-agent/dsh-superagent-session-fold&Date)
 
 The chart is served by [star-history.com](https://star-history.com) and updates automatically as the repository gains stars; the badges above are live shields.io images.
+
+## Contributing
+
+Issues and pull requests are welcome. If this plugin saves your sidebar, a star helps other DSH users find it.
 
 ## License
 
