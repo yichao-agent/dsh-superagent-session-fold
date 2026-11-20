@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "Contain superagent worker sessions behind one status entry in the sidebar and deep-link to the Superagent panel.",
+  "description": "Contain superagent worker sessions behind one sidebar status row and open the main orchestrator conversation on click.",
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",

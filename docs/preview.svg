@@ -1,56 +1,66 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300">
   <g fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <!-- before: many worker directories -->
-    <g opacity="0.9">
-      <g transform="translate(40 62)">
-        <rect x="0" y="0" width="132" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
-        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
-        <path d="M22 7v10" stroke="#64748b" opacity="0.5"/>
+    <g opacity="0.85">
+      <g transform="translate(36 54)">
+        <rect x="0" y="0" width="150" height="26" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M12 9.5h4.5l2 2.2h5.5M32 8v10" stroke="#64748b"/>
       </g>
-      <g transform="translate(40 94)">
-        <rect x="0" y="0" width="120" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
-        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      <g transform="translate(36 88)">
+        <rect x="0" y="0" width="136" height="26" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M12 9.5h4.5l2 2.2h5.5" stroke="#64748b"/>
       </g>
-      <g transform="translate(40 126)">
-        <rect x="0" y="0" width="126" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
-        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      <g transform="translate(36 122)">
+        <rect x="0" y="0" width="142" height="26" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M12 9.5h4.5l2 2.2h5.5" stroke="#64748b"/>
       </g>
-      <g transform="translate(40 158)">
-        <rect x="0" y="0" width="112" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
-        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      <g transform="translate(36 156)">
+        <rect x="0" y="0" width="128" height="26" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M12 9.5h4.5l2 2.2h5.5" stroke="#64748b"/>
       </g>
-      <g transform="translate(40 190)">
-        <rect x="0" y="0" width="124" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
-        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      <g transform="translate(36 190)">
+        <rect x="0" y="0" width="146" height="26" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M12 9.5h4.5l2 2.2h5.5" stroke="#64748b"/>
       </g>
-      <g transform="translate(40 222)">
-        <rect x="0" y="0" width="116" height="24" rx="6" fill="#e2e8f0" stroke="none"/>
-        <path d="M10 8.5h4l1.8 2h5.2" stroke="#64748b"/>
+      <g transform="translate(36 224)">
+        <rect x="0" y="0" width="132" height="26" rx="6" fill="#e2e8f0" stroke="none"/>
+        <path d="M12 9.5h4.5l2 2.2h5.5" stroke="#64748b"/>
       </g>
     </g>
 
-    <!-- arrow -->
-    <g transform="translate(238 150)" stroke="#3b82f6" stroke-width="2">
-      <path d="M0 -10h64M56 -18l10 8-10 8"/>
+    <!-- collapse arrow -->
+    <g transform="translate(232 150)" stroke="#3b82f6" stroke-width="2">
+      <path d="M0 -10h44M36 -18l10 8-10 8"/>
     </g>
 
-    <!-- after: one folded group, many rows inside when opened -->
-    <g transform="translate(368 56)">
-      <rect x="0" y="0" width="232" height="182" rx="12" fill="#eef4ff" stroke="#c7d7f5"/>
-      <rect x="14" y="16" width="204" height="28" rx="7" fill="#dbe7fb" stroke="none"/>
-      <path d="M30 24.5h4.5l2 2.2h5.8" stroke="#2f6fed"/>
-      <path d="M114 25.5l4 4-4 4" stroke="#2f6fed"/>
-      <circle cx="186" cy="30" r="2.2" fill="#2f6fed"/>
-      <circle cx="194" cy="30" r="2.2" fill="#2f6fed" opacity="0.65"/>
-      <circle cx="202" cy="30" r="2.2" fill="#2f6fed" opacity="0.35"/>
-      <g stroke="#93a9cc" stroke-width="1.4" opacity="0.85">
-        <path d="M44 62h96M44 82h132M44 102h112M44 122h140M44 142h88"/>
+    <!-- after: one containment row plus a normal list -->
+    <g transform="translate(330 46)">
+      <rect x="0" y="0" width="276" height="214" rx="12" fill="#eef4ff" stroke="#c7d7f5"/>
+      <g stroke="#c3cfe3" stroke-width="1.4" opacity="0.9">
+        <path d="M20 30h96M20 50h144M20 70h112"/>
       </g>
-      <g fill="#2f6fed" opacity="0.55">
-        <circle cx="30" cy="61" r="2.4"/><circle cx="30" cy="81" r="2.4"/>
-        <circle cx="30" cy="101" r="2.4"/><circle cx="30" cy="121" r="2.4"/>
-        <circle cx="30" cy="141" r="2.4"/>
+      <!-- contained superagent row -->
+      <rect x="14" y="92" width="248" height="34" rx="7" fill="#dbe7fb" stroke="none"/>
+      <g fill="#2f6fed">
+        <rect x="28" y="101" width="14" height="3" rx="1.5"/>
+        <rect x="28" y="107" width="14" height="3" rx="1.5" opacity="0.6"/>
+        <rect x="28" y="113" width="14" height="3" rx="1.5" opacity="0.3"/>
       </g>
+      <path d="M50 104h58" stroke="#5b7db8" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="216" cy="109" r="3.5" fill="#16a34a"/>
+      <path d="M226 104h22M226 110h14" stroke="#16a34a" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+      <path d="M244 106l5 3-5 3" stroke="#5b7db8" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- normal rows -->
+      <g stroke="#c3cfe3" stroke-width="1.4">
+        <path d="M20 146h96M20 166h148M20 186h118"/>
+      </g>
+    </g>
+
+    <!-- click leads to the main conversation -->
+    <g transform="translate(470 258)" stroke="#64748b" stroke-width="1.6">
+      <path d="M0 0c0-6 5-11 11-11h24c6 0 11 5 11 11v8c0 6-5 11-11 11H22l-9 7v-7C6 19 0 14 0 8Z" fill="#f1f5f9"/>
+      <path d="M-24 -4h16" stroke="#3b82f6"/>
+      <path d="M-13 -9l6 5-6 5" stroke="#3b82f6"/>
     </g>
   </g>
 </svg>
