@@ -94,7 +94,6 @@ index.js             Host 空壳（保证 bundle 有 Loader 条目）
 cordis.patch.yml     bundle 补丁，插入 session-fold 条目
 locale/              插件管理界面的展示元数据（中/英）
 docs/                插件详情页、预览图、截图
-scripts/             定时工作流使用的 star-history 渲染脚本
 ```
 
 语法检查与安装：
@@ -108,9 +107,9 @@ dsh plugin --profile web add "$PWD"
 
 ## Star 历史
 
-![Star history](assets/star-history.svg)
+[![Star History Chart](https://api.star-history.com/svg?repos=yichao-agent/dsh-session-fold&type=Date)](https://star-history.com/#yichao-agent/dsh-session-fold&Date)
 
-该图由 [`.github/workflows/star-history.yml`](.github/workflows/star-history.yml) 每天通过 GitHub API 重新生成并提交（累计 star 数 + 最新 watcher 数）。上面的徽章由 shields.io 实时生成。
+图表由 [star-history.com](https://star-history.com) 提供，仓库获得 star 后会自动更新；上面两枚徽章由 shields.io 实时生成。
 
 ## 许可证
 

@@ -94,7 +94,6 @@ index.js             Host half (no-op; keeps the bundle a Loader entry)
 cordis.patch.yml     Bundle patch inserting the session-fold row
 locale/              Plugin Manager display metadata (en, zh)
 docs/                Plugin detail document, preview, screenshots
-scripts/             Star-history renderer used by the scheduled workflow
 ```
 
 Syntax check and install:
@@ -108,9 +107,9 @@ The design contract for the slot, hooks, and services is documented by DSH itsel
 
 ## Star history
 
-![Star history](assets/star-history.svg)
+[![Star History Chart](https://api.star-history.com/svg?repos=yichao-agent/dsh-session-fold&type=Date)](https://star-history.com/#yichao-agent/dsh-session-fold&Date)
 
-The chart is regenerated and committed daily by [`.github/workflows/star-history.yml`](.github/workflows/star-history.yml) from the GitHub API (cumulative stars plus the latest watcher count). The badges above are live shields.io images.
+The chart is served by [star-history.com](https://star-history.com) and updates automatically as the repository gains stars; the badges above are live shields.io images.
 
 ## License
 
