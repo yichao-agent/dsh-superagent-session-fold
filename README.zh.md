@@ -23,6 +23,10 @@
 
   它显示 `运行中 N`、`待处理 N` 或 `N 个任务`；有 worker 在跑或等待人工处理时，这一行会浮到最上面。
 - **点击这一行打开 Superagent 主会话**（当前活跃的 `orchestrator-*` 会话）。管理面板本来就在顶部导航里有自己的 `Superagent` 入口，所以侧边栏这一行用来回到主对话。
+- **新会话的工作区选择器也会隐藏这些目录**：只列你自己的普通工作区，并显示隐藏了多少个 superagent 目录；`添加工作区…` 仍可用（走宿主的目录选择器）。
+
+  ![新会话工作区选择器不再出现 worker 目录](docs/screenshots/picker.zh.png)
+
 - **不提供原地展开**。任务目录不能再漏回侧边栏；上一版的“可展开收容”会重新摊开子树，等于没收容。
 - 其他工作区照旧按目录分组展示；搜索仍能按标题找到被收容的会话；插件不修改任何会话或工作区数据。
 
@@ -50,6 +54,16 @@ dsh plugin --profile web add /absolute/path/to/dsh-superagent-session-fold
 然后重启或刷新 Web UI。停用插件会立即恢复原生侧边栏浏览器；磁盘上的任何数据都不会被改动。
 
 要求：DSH `0.2.2-rc.3`（已实测）。superagent 集成是可选的；没有 `dsh-superagent` 时，收容行仍会折叠该状态目录，只是点击时回退到该目录下最近的会话。
+
+### dsh-plugin-hub / 本地列表
+
+hub 的自动镜像只读取 `topic:dsh-plugin` 搜索的前 ~300 条（该 topic 有数万个仓库），新仓库不一定马上能被搜到。想让它在你的 hub 里立刻出现，可以导入 [`docs/dsh-plugin-list.json`](docs/dsh-plugin-list.json)：
+
+1. 打开 hub（**插件** → **插件商店** → **自动识别** → **＋ 添加来源**）；
+2. 粘贴该文件的 raw URL，或直接上传；
+3. 插件会作为来源条目出现，可从商店安装。
+
+本地列表不等于 hub 的全局索引；提交到认证列表的事情另算。
 
 ## 配置
 
@@ -89,7 +103,8 @@ Client 模块以 `priority: -10` 注册到单例槽位 `sidebar.workspaces`，�
 ## 限制
 
 - 启用期间，原生浏览器的部分能力不可用：添加/重命名/删除工作区、拖拽排序、视图选项、以及其他插件的行装饰（IM 头像、日程标记、悬浮卡）。
-- 插件遮蔽的是另一个包声明的单例槽位；若 DSH 升级重命名 `sidebar.workspaces` 或其标准 props，插件需要跟进。
+- 插件遮蔽的是其他包声明的单例槽位（`sidebar.workspaces` 与 `conversation.hero.workspace`）；若 DSH 升级重命名其中之一或改其标准 props，插件需要跟进。
+- 新会话选择器是“替换”而非“过滤”：原生选择器的目录选择弹层不再渲染；`添加工作区…` 改走宿主的目录选择器。
 - Client 模块在页面启动时加载：安装或更新后要刷新页面，运行中的页面不会热替换这个 bundle。
 - 收容在侧边栏内刻意不可展开；要看 worker 会话请用 Superagent 面板或搜索。
 
@@ -101,6 +116,7 @@ index.js             Host 空壳（保证 bundle 有 Loader 条目）
 cordis.patch.yml     bundle 补丁，插入 superagent-session-fold 条目
 locale/              插件管理界面的展示元数据（中/英）
 docs/                插件详情页、预览图、截图
+docs/dsh-plugin-list.json  可导入 dsh-plugin-hub 的列表条目
 ```
 
 语法检查与安装：

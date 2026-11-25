@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Superagent session containment",
-    "description": "Moves superagent worker sessions out of the sidebar session list into one status row. Clicking the row opens the Superagent main conversation (the management panel keeps its own entry in the upper navigation); running and waiting task counts stay visible in the row.",
+    "description": "Moves dsh-superagent worker sessions out of the sidebar session list into one status row, and hides the same worker directories from the New Session workspace picker. Clicking the row opens the main orchestrator conversation; the management panel keeps its own navigation entry.",
     "detail": "docs/DETAIL.md"
   }
 }

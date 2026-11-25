@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Superagent 会话收容",
-    "description": "把 superagent 的 worker 会话从侧边栏会话列表里收容掉，只留一行状态入口：显示运行中/待处理任务数；点击这一行切到 Superagent 主会话（管理面板仍走顶部 Superagent 入口）。",
+    "description": "把 dsh-superagent 的 worker 会话从侧边栏会话列表里收容掉，只留一行状态入口；新会话的工作区选择器也会隐藏这些 worker 目录。点击状态行切到 Superagent 主会话，管理面板仍走顶部入口。",
     "detail": "docs/DETAIL.zh.md"
   }
 }

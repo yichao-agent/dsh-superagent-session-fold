@@ -23,6 +23,10 @@ A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) clie
 
   It reports `N running`, `N waiting`, or `N tasks`. The row moves to the top while a worker is running or waiting for a human.
 - **Clicking the row opens the superagent main conversation** (the live `orchestrator-*` session). The management panel already has its own `Superagent` entry in the upper navigation, so the sidebar row is for the conversation, not the panel.
+- **Hides the same directories in the New Session workspace picker.** The picker lists only your own workspaces and shows how many superagent directories were hidden; `Add workspace…` still works through the host directory picker.
+
+  ![New Session workspace picker without worker directories](docs/screenshots/picker.en.png)
+
 - **Never expands the tree.** Task directories cannot leak back into the sidebar; expandable containment was the previous version and defeated the purpose.
 - Other workspaces keep their grouped/expanded list, search still finds contained sessions by title, and no session or workspace data is modified.
 
@@ -50,6 +54,16 @@ dsh plugin --profile web add /absolute/path/to/dsh-superagent-session-fold
 Then restart or reload the Web UI. Disable the plugin to get the shipped sidebar browser back immediately — nothing on disk is changed.
 
 Requirements: DSH `0.2.2-rc.3` (tested). The superagent integration is optional; without `dsh-superagent` the containment row still collapses the state directory but the master-session fallback opens the most recent session there.
+
+### dsh-plugin-hub / local source
+
+The hub's automatic mirror only reads the first ~300 results of `topic:dsh-plugin` (the topic has tens of thousands of repos), so a brand-new repository may not be discoverable there immediately. To make this plugin appear in a hub installation now, import [`docs/dsh-plugin-list.json`](docs/dsh-plugin-list.json):
+
+1. Open the hub (**插件** → **插件商店** → **自动识别** → **＋ 添加来源**).
+2. Paste the raw URL of that file, or upload it.
+3. The plugin appears as a source entry and can be installed from the store.
+
+The local list does not replace the hub's global index; a submission to the curated lists is tracked separately.
 
 ## Configuration
 
@@ -89,7 +103,8 @@ Disabling the bundle removes the registration and the shipped browser wins again
 ## Limitations
 
 - While enabled, the shipped browser's workspace management is absent: adding/renaming/deleting workspaces, drag ordering, view options, and row decorations from other plugins (chat-channel avatars, schedule marks, hover cards) are not rendered.
-- The plugin replaces a single slot from another package; a DSH release that renames `sidebar.workspaces` or changes its standard props needs a plugin update.
+- The plugin replaces single slots from other packages (`sidebar.workspaces` and `conversation.hero.workspace`); a DSH release that renames either slot or changes its standard props needs a plugin update.
+- The New Session picker is a replacement, not a filter: the shipped picker's composed directory-flow dialog is not rendered. `Add workspace…` uses the host directory picker instead.
 - Client modules are loaded at page boot: after installing or updating, reload the page; the running page does not hot-replace this bundle.
 - Containment is intentionally not expandable in place. Use the Superagent panel or search to reach a worker session.
 
@@ -101,6 +116,7 @@ index.js             Host half (no-op; keeps the bundle a Loader entry)
 cordis.patch.yml     Bundle patch inserting the superagent-session-fold row
 locale/              Plugin Manager display metadata (en, zh)
 docs/                Plugin detail document, preview, screenshots
+docs/dsh-plugin-list.json  Importable list entry for dsh-plugin-hub
 ```
 
 Syntax check and install:

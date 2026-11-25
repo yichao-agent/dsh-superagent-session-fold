@@ -73,6 +73,12 @@ window.__ModuleLoader__.load({
       'superagent.pending': '待处理 {n}',
       'superagent.tasks': '{n} 个任务',
       'superagent.open': '打开 Superagent 主会话',
+      'picker.title': '选择工作区',
+      'picker.add': '添加工作区…',
+      'picker.loading': '加载中…',
+      'picker.empty': '暂无工作区',
+      'picker.hidden': '已隐藏 {n} 个 superagent 目录',
+      'picker.addFailed': '添加失败：{message}',
       'fallback': '会话折叠加载失败，已保留经典视图的入口；刷新页面可重试。',
     }
 
@@ -112,6 +118,12 @@ window.__ModuleLoader__.load({
       'superagent.pending': '{n} waiting',
       'superagent.tasks': '{n} tasks',
       'superagent.open': 'Open the Superagent main session',
+      'picker.title': 'Choose workspace',
+      'picker.add': 'Add workspace…',
+      'picker.loading': 'Loading…',
+      'picker.empty': 'No workspaces',
+      'picker.hidden': '{n} superagent directories hidden',
+      'picker.addFailed': 'Could not add: {message}',
       'fallback': 'Session fold failed to load. Refresh the page to retry.',
     }
 
@@ -312,6 +324,70 @@ window.__ModuleLoader__.load({
 .sf-superagent-meta .sf-meta-part { display: inline-flex; align-items: center; gap: 4px; }
 .sf-superagent-meta .sf-meta-part.running { color: var(--dsw-alias-state-success-primary, #2f9e44); }
 .sf-superagent-meta .sf-meta-part.warn { color: var(--dsw-alias-state-warn-primary, #e8a33d); }
+.sf-picker {
+  position: fixed;
+  z-index: 60;
+  width: 300px;
+  max-height: 340px;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid var(--dsw-alias-border-l1, rgba(127,127,127,.25));
+  border-radius: 10px;
+  background: var(--dsw-alias-bg-overlay, var(--dsw-alias-bg-layer-1, #fff));
+  box-shadow: 0 10px 32px rgba(0,0,0,.22);
+}
+.sf-picker-title {
+  padding: 6px 8px 4px;
+  font-size: 11px;
+  line-height: 15px;
+  color: var(--dsw-alias-label-tertiary);
+}
+.sf-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--dsw-alias-label-primary);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.sf-picker-item.active { background: var(--dsw-alias-interactive-bg-hover, rgba(127,127,127,.16)); }
+.sf-picker-item:hover { background: var(--dsw-alias-interactive-bg-hover, rgba(127,127,127,.12)); }
+.sf-picker-item .sf-picker-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sf-picker-add {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 32px;
+  margin-top: 4px;
+  padding: 0 8px;
+  border: none;
+  border-top: 1px solid var(--dsw-alias-border-l1, rgba(127,127,127,.2));
+  border-radius: 0 0 7px 7px;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+}
+.sf-picker-add:hover { background: var(--dsw-alias-interactive-bg-hover, rgba(127,127,127,.12)); }
+.sf-picker-add:disabled { opacity: .55; cursor: default; }
+.sf-picker-note { padding: 6px 8px; font-size: 11px; color: var(--dsw-alias-label-tertiary); }
+.sf-picker-error { padding: 6px 8px; font-size: 11px; color: var(--dsw-alias-state-error-primary, #b42318); }
 .sf-empty {
   padding: 28px 12px;
   text-align: center;
@@ -515,6 +591,105 @@ window.__ModuleLoader__.load({
         const ub = list.byId[b]?.updatedAt ?? 0
         return ub - ua
       })
+    }
+
+    // ------------------------------------------------------------ picker
+
+    function IconFolderSmall() {
+      return h('svg', { width: 14, height: 14, viewBox: '0 0 16 16', 'aria-hidden': true },
+        h('path', { d: 'M1.8 4.2c0-.7.6-1.2 1.2-1.2h2.6l1.2 1.4h5.2c.7 0 1.2.6 1.2 1.2v5.9c0 .7-.6 1.2-1.2 1.2H3c-.7 0-1.2-.6-1.2-1.2V4.2Z', fill: 'none', stroke: 'currentColor', strokeWidth: 1.2 }))
+    }
+
+    /**
+     * New-Session workspace picker replacement: the same owner contract as the
+     * shipped picker, but contained Workspaces are not offered. The anchor chip
+     * and the session/draft state stay with the conversation owner.
+     */
+    function FoldPicker(props) {
+      const { open, anchorRef, selectedId, onPick, onClose, t, useWorkspaces } = props
+      const ctx = props.ctx
+      const snapshot = useWorkspaces(state => state)
+      const [roots] = useState(foldRoots)
+      const [busy, setBusy] = useState(false)
+      const [error, setError] = useState('')
+      const menuRef = useRef(null)
+
+      const items = useMemo(() => (snapshot.items ?? []).filter(workspace => !isFolded(workspace.path, roots)), [snapshot.items, roots])
+      const hidden = (snapshot.items ?? []).length - items.length
+
+      useEffect(() => {
+        if (!open) return
+        const onPointerDown = event => {
+          if (menuRef.current?.contains(event.target)) return
+          if (anchorRef?.current?.contains(event.target)) return
+          onClose()
+        }
+        const onKeyDown = event => { if (event.key === 'Escape') onClose() }
+        window.addEventListener('pointerdown', onPointerDown, true)
+        window.addEventListener('keydown', onKeyDown)
+        return () => {
+          window.removeEventListener('pointerdown', onPointerDown, true)
+          window.removeEventListener('keydown', onKeyDown)
+        }
+      }, [open, onClose, anchorRef])
+
+      if (!open) return null
+
+      const rect = anchorRef?.current?.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const below = rect === undefined ? 0 : viewportHeight - rect.bottom
+      const style = rect === undefined
+        ? { left: 16, top: 16 }
+        : below >= 260
+          ? { left: Math.min(rect.left, window.innerWidth - 312), top: rect.bottom + 6, maxHeight: Math.min(340, below - 16) }
+          : { left: Math.min(rect.left, window.innerWidth - 312), top: Math.max(8, rect.top - 340), maxHeight: Math.min(340, rect.top - 16) }
+
+      const addWorkspace = () => {
+        const service = ctx.get('uiWorkspace')
+        const workspaceService = ctx.get('workspaces')
+        if (!service?.pickDirectory || !workspaceService?.create) return
+        setBusy(true)
+        setError('')
+        void service.pickDirectory().then(path => {
+          if (path === null || path === undefined) return undefined
+          return workspaceService.create({ path }).then(workspace => { onPick(workspace.workspaceId) })
+        }).catch(reason => {
+          setError(t('picker.addFailed', { message: reason instanceof Error ? reason.message : String(reason) }))
+        }).finally(() => { setBusy(false) })
+      }
+
+      return h('div', { ref: menuRef, className: 'sf-picker', style, role: 'menu', 'aria-label': t('picker.title') },
+        h('div', { className: 'sf-picker-title' }, t('picker.title')),
+        snapshot.phase === 'pending' && items.length === 0
+          ? h('div', { className: 'sf-picker-note' }, t('picker.loading'))
+          : items.length === 0
+            ? h('div', { className: 'sf-picker-note' }, t('picker.empty'))
+            : items.map(workspace => h('button', {
+              key: workspace.workspaceId,
+              type: 'button',
+              role: 'menuitemradio',
+              'aria-checked': workspace.workspaceId === selectedId,
+              className: `sf-picker-item${workspace.workspaceId === selectedId ? ' active' : ''}`,
+              title: workspace.path,
+              onClick: () => onPick(workspace.workspaceId),
+            },
+            h('span', { className: 'sf-slot' }, h(IconFolderSmall)),
+            h('span', { className: 'sf-picker-label' }, workspace.title || workspace.path),
+            )),
+        hidden > 0 && h('div', { className: 'sf-picker-note' }, t('picker.hidden', { n: hidden })),
+        error !== '' && h('div', { className: 'sf-picker-error' }, error),
+        h('button', {
+          type: 'button',
+          className: 'sf-picker-add',
+          disabled: busy,
+          onClick: addWorkspace,
+        }, h('span', { className: 'sf-slot' }, h(IconPlusSmall)), busy ? t('picker.loading') : t('picker.add')),
+      )
+    }
+
+    function IconPlusSmall() {
+      return h('svg', { width: 14, height: 14, viewBox: '0 0 16 16', 'aria-hidden': true },
+        h('path', { d: 'M8 3v10M3 8h10', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round' }))
     }
 
     // ------------------------------------------------------------ component
@@ -1124,6 +1299,12 @@ window.__ModuleLoader__.load({
             locale: NS,
             inject: () => ({ ctx }),
           }, FoldRoot))
+          ctx.slots.inject('conversation.hero.workspace', () => ctx.slots.register({
+            name: 'conversation.hero.workspace',
+            priority: -10,
+            locale: NS,
+            inject: () => ({ ctx }),
+          }, FoldPicker))
         } catch (error) {
           // Never leave the sidebar without a browsing region: the shipped
           // browser stays the winner when this registration never lands.

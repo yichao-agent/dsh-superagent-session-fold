@@ -1,0 +1,8 @@
+[
+  {
+    "name": "dsh-superagent-session-fold",
+    "url": "https://github.com/yichao-agent/dsh-superagent-session-fold",
+    "description": "Contain dsh-superagent worker sessions behind one sidebar status row; clicking opens the supervisor conversation, and the New Session workspace picker hides worker directories too.",
+    "category": "界面美化"
+  }
+]
