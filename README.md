@@ -63,6 +63,8 @@ The hub's automatic mirror only reads the first ~300 results of `topic:dsh-plugi
 2. Paste the raw URL of that file, or upload it.
 3. The plugin appears as a source entry and can be installed from the store.
 
+Raw URL: `https://raw.githubusercontent.com/yichao-agent/dsh-superagent-session-fold/main/docs/dsh-plugin-list.json`
+
 The local list does not replace the hub's global index; a submission to the curated lists is tracked separately.
 
 ## Configuration

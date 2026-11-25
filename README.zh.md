@@ -63,6 +63,8 @@ hub 的自动镜像只读取 `topic:dsh-plugin` 搜索的前 ~300 条（该 topi
 2. 粘贴该文件的 raw URL，或直接上传；
 3. 插件会作为来源条目出现，可从商店安装。
 
+Raw URL：`https://raw.githubusercontent.com/yichao-agent/dsh-superagent-session-fold/main/docs/dsh-plugin-list.json`
+
 本地列表不等于 hub 的全局索引；提交到认证列表的事情另算。
 
 ## 配置
